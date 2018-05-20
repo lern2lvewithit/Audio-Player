@@ -7,19 +7,51 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
+    
+    @IBOutlet var slider: UISlider!
+    
+    var player = AVAudioPlayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let audioPath = Bundle.main.path(forResource: "sheep", ofType: "mp3")
+        
+        do {
+            
+            try player = AVAudioPlayer(contentsOf: URL(fileURLWithPath: audioPath!))
+            
+            
+            
+        } catch {
+            
+            // Process any errors
+            
+            
+        }
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func playTapped(_ sender: Any) {
+        
+        player.play()
+        
     }
-
-
+    
+    @IBAction func pauseTapped(_ sender: Any) {
+        
+        player.pause()
+        
+    }
+    
+    @IBAction func sliderMoved(_ sender: Any) {
+        
+        player.volume = slider.value
+        
+    }
+    
 }
 
